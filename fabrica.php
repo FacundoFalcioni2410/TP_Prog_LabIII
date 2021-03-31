@@ -1,13 +1,16 @@
 <?php
-    class Fabrica
+    require_once("empleado.php");
+    require_once("IArchivo.php");
+
+    class Fabrica implements IArchivo
     {
         private $_cantidadMaxima;
         private $_empleados;
         private $_razonSocial;
 
-        public function __construct($razonSocial)
+        public function __construct($razonSocial, $cantidad = 5)
         {
-            $this->_cantidadMaxima = 5;
+            $this->_cantidadMaxima = $cantidad;
             $this->_empleados = array();
             $this->_razonSocial = $razonSocial;
         }
@@ -73,6 +76,43 @@
             $resultado .= "Sueldo total a pagar: " . $this->CalcularSueldos() . "<br>";
 
             return $resultado;
+        }
+
+        public function TraerDeArchivo($nombreArchivo)
+        {
+            
+            $archivo = fopen($nombreArchivo,"r");
+        
+            if(file_exists($nombreArchivo))
+            {
+                do
+                {
+                    $cadena = fgets($archivo);
+                    $arr = explode(" - ", $cadena);
+                    if($arr[0] !== "")
+                    {
+                        $empleado = new Empleado($arr[0],$arr[1],$arr[3],$arr[2],$arr[4],$arr[5],$arr[6]);
+                        $this->AgregarEmpleado($empleado);
+                    }
+                }while(!feof($archivo));
+                fclose($archivo);
+            }
+            return $this;
+        }
+
+        public function GuardarArchivo($nombreArchivo)
+        {
+            $archivo = fopen($nombreArchivo,"a");
+            if(file_exists($nombreArchivo))
+            {
+                foreach($this->_empleados as $item)
+                {
+                    fwrite($archivo, $item->ToString());
+                    fclose($archivo);
+                }
+                return true;
+            }
+            return false;
         }
     }
 ?>
