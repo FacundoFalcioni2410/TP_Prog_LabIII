@@ -35,7 +35,7 @@
                     break;
             }
 
-            $path = "./archivos/empleados.txt";
+            $path = "archivos/empleados.txt";
 
             $empleado = new Empleado($nombre,$apellido,$dni,$sexo,$legajo,$sueldo,$turno);
             $fabrica = new Fabrica("X",7);

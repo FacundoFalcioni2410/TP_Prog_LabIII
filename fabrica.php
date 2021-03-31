@@ -45,18 +45,15 @@
 
         public function EliminarEmpleado($empleado)
         {
-            $retorno = false;
-
             foreach($this->_empleados as $key => $value)
             {
-                if($value === $empleado)
+                if($value->GetLegajo() === $empleado->GetLegajo())
                 {
                     unset($this->_empleados[$key]);
-                    return true;
+                    return $this;
                 }
-            }
-            
-            return $retorno;
+            } 
+            return false;
         }
 
         private function EliminarEmpleadosRepetidos()
@@ -85,16 +82,20 @@
         
             if(file_exists($nombreArchivo))
             {
-                do
+                if(filesize($nombreArchivo))
                 {
-                    $cadena = fgets($archivo);
-                    $arr = explode(" - ", $cadena);
-                    if($arr[0] !== "")
+                    do
                     {
-                        $empleado = new Empleado($arr[0],$arr[1],$arr[3],$arr[2],$arr[4],$arr[5],$arr[6]);
-                        $this->AgregarEmpleado($empleado);
-                    }
-                }while(!feof($archivo));
+                        $cadena = fgets($archivo);
+                        $cadena = is_string($cadena) ? trim($cadena) : false;
+                        $arr = explode(" - ", $cadena);
+                        if($arr[0] != "" && $arr[0] != "\r\n")
+                        {
+                            $empleado = new Empleado($arr[0],$arr[1],$arr[3],$arr[2],$arr[4],$arr[5],$arr[6]);
+                            $this->AgregarEmpleado($empleado);
+                        }
+                    }while(!feof($archivo));
+                }
                 fclose($archivo);
             }
             return $this;
@@ -102,14 +103,15 @@
 
         public function GuardarArchivo($nombreArchivo)
         {
-            $archivo = fopen($nombreArchivo,"a");
+            $archivo = fopen($nombreArchivo,"w");
             if(file_exists($nombreArchivo))
             {
                 foreach($this->_empleados as $item)
                 {
-                    fwrite($archivo, $item->ToString());
-                    fclose($archivo);
+                    $cadena = $item->ToString() . PHP_EOL;
+                    fwrite($archivo,$cadena);
                 }
+                fclose($archivo);
                 return true;
             }
             return false;

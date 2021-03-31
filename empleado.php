@@ -53,7 +53,7 @@
 
         public function ToString()
         {
-            return parent::ToString() . " - " . $this->GetLegajo() . " - " . $this->GetSueldo() . " - " . $this->GetTurno() . PHP_EOL;
+            return parent::ToString() . " - " . $this->GetLegajo() . " - " . $this->GetSueldo() . " - " . $this->GetTurno();
         }
     }
 ?>
