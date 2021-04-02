@@ -36,7 +36,7 @@
 
         public abstract function Hablar($idioma);
 
-        public function ToString()
+        public function __toString()
         {
             return $this->GetNombre() . " - " . $this->GetApellido() . " - " . $this->GetSexo() . " - " . $this->GetDni();
         }

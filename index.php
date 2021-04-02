@@ -10,7 +10,7 @@
     $objC= new Empleado("Juana", "Diaz", 43500672, "Femenino", 109854, 40000, "Noche");
     
     #Metodos clase Empleado
-    echo($objA->ToString());
+    echo($objA->__toString());
     echo($objA->Hablar(["Ingles","Español"]) . "<br> <br>");
 
     #Metodos clase Fabrica
@@ -18,5 +18,6 @@
     $obj1->AgregarEmpleado(4);
     $obj1->AgregarEmpleado($objC);
     $obj1->EliminarEmpleado($objB);
+
     echo($obj1->ToString());
 ?>

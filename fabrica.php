@@ -55,7 +55,7 @@
         }
 
         private function EliminarEmpleadosRepetidos()
-        {            
+        {
             $this->_empleados = array_unique($this->_empleados, SORT_REGULAR);
         }
         
@@ -65,7 +65,7 @@
 
             foreach($this->_empleados as $item)
             {
-                $resultado .= $item->ToString();
+                $resultado .= $item->__toString();
             }
 
             $resultado .= "Sueldo total a pagar: " . $this->CalcularSueldos() . "<br>";
@@ -110,7 +110,7 @@
             {
                 foreach($this->_empleados as $item)
                 {
-                    $cadena = $item->ToString() . PHP_EOL;
+                    $cadena = $item->__toString() . PHP_EOL;
                     fwrite($archivo,$cadena);
                 }
                 fclose($archivo);
