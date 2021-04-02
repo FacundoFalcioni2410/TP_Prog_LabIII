@@ -1,3 +1,7 @@
+<?php
+    require_once("fabrica.php");
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,29 +11,28 @@
     <title>Mostrar empleados</title>
 </head>
 <body>
-    <form action="eliminar.php" method="GET">
     <?php
-        require_once("fabrica.php");
         $path = "archivos/empleados.txt";
         $fabrica = new Fabrica(" ",7); 
         $fabrica = $fabrica->TraerDeArchivo($path);
         $archivo = fopen($path,"r");
-
+        
         if($archivo != null)
         {
             do
             {
                 $cadena = fgets($archivo);
+                $cadena = is_string($cadena) ? trim($cadena) : false;
                 if($cadena != false)
                 {
                     $arr = explode(" - ",$cadena);
-                    echo($cadena . "<input type='hidden' name='legajo' value='$arr[4]'> <input type='submit' value='Eliminar'>" . "<br>");
+                    echo($cadena . " <a href=eliminar.php?legajo=$arr[4]>Eliminar</a>" . "<br>");
                 }
             }while(!feof($archivo));
             fclose($archivo);
-            echo("<br><a href='index.html'>Inicio</a>");
+            echo("<a href='index.html'>Inicio</a>");
         }
+        # "<input type='hidden' name='legajo' value='$arr[4]'><input type='submit' value='Eliminar'>"
     ?>
-    </form>
 </body>
 </html>

@@ -17,8 +17,6 @@
 
         public function AgregarEmpleado($empleado)
         {
-            $retorno = false;
-
             if(is_object($empleado) && get_class($empleado) == "Empleado")
             {
                 if($this->_cantidadMaxima > count($this->_empleados))
@@ -28,7 +26,7 @@
                     return true;
                 }
             }
-            return $retorno;
+            return false;
         }
 
         public function CalcularSueldos()
@@ -50,7 +48,7 @@
                 if($value->GetLegajo() === $empleado->GetLegajo())
                 {
                     unset($this->_empleados[$key]);
-                    return $this;
+                    return true;
                 }
             } 
             return false;
@@ -88,12 +86,16 @@
                     {
                         $cadena = fgets($archivo);
                         $cadena = is_string($cadena) ? trim($cadena) : false;
-                        $arr = explode(" - ", $cadena);
-                        if($arr[0] != "" && $arr[0] != "\r\n")
+                        if($cadena != false)
                         {
+                            $arr = explode(" - ", $cadena);
+                            if($arr[0] != "" && $arr[0] != "\r\n")
+                            {   
                             $empleado = new Empleado($arr[0],$arr[1],$arr[3],$arr[2],$arr[4],$arr[5],$arr[6]);
                             $this->AgregarEmpleado($empleado);
+                            }
                         }
+                        
                     }while(!feof($archivo));
                 }
                 fclose($archivo);
