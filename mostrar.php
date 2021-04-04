@@ -13,8 +13,6 @@
 <body>
     <?php
         $path = "archivos/empleados.txt";
-        $fabrica = new Fabrica(" ",7); 
-        $fabrica = $fabrica->TraerDeArchivo($path);
         $archivo = fopen($path,"r");
         
         if($archivo != null)
@@ -32,7 +30,6 @@
             fclose($archivo);
             echo("<a href='index.html'>Inicio</a>");
         }
-        # "<input type='hidden' name='legajo' value='$arr[4]'><input type='submit' value='Eliminar'>"
     ?>
 </body>
 </html>
