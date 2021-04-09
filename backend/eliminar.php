@@ -23,7 +23,7 @@
                 $arr = explode(" - ",$linea);
                 if($arr[4] == $legajo)
                 {
-                    $empleado = new Empleado($arr[1],$arr[2],$arr[0],$arr[3],$arr[4],$arr[5],$arr[6],);
+                    $empleado = new Empleado($arr[1],$arr[2],$arr[0],$arr[3],$arr[4],$arr[5],$arr[6]);
                     $fabrica = new Fabrica("",7);
                     $fabrica->TraerDeArchivo($path);
                     if($fabrica->EliminarEmpleado($empleado))
