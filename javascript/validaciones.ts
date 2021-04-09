@@ -78,3 +78,15 @@ const AdministrarSpanError: Function = (id: string, bool: boolean):void =>{
         span.style.display = "none";
     }
 }
+
+const VerificarValidacionesLogin: Function = (): boolean =>{
+
+    let spanDni: string = (<HTMLElement> document.getElementById("spanTxtDni")).style.display;
+    let spanApellido: string = (<HTMLElement> document.getElementById("spanTxtApellido")).style.display;
+    if(spanDni === "none" && spanApellido === "none")
+    {
+        return true;
+    }
+
+    return false;
+}

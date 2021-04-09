@@ -67,14 +67,13 @@ const AdministrarValidaciones = (e: Event) =>{
     }
 }
 
-const VerificarValidacionesLogin: Function = (e: Event): boolean =>{
+const AdministrarValidacionesLogin: Function = (e: Event) =>
+{
     let dni: number = parseInt((<HTMLInputElement> document.getElementById("txtDni")).value);
     
     if(!ValidarRangoNumerico(dni,1000000,55000000))
     {
         AdministrarSpanError("spanTxtDni", true);
-        e.preventDefault();
-        return false;
     }
     else
     {
@@ -84,13 +83,14 @@ const VerificarValidacionesLogin: Function = (e: Event): boolean =>{
     if(!ValidarCamposVacios("txtApellido"))
     {
         AdministrarSpanError("spanTxtApellido", true);
-        e.preventDefault();
-        return false;
     }
     else
     {
         AdministrarSpanError("spanTxtApellido", false);
     }
 
-    return true;
+    if(!VerificarValidacionesLogin())
+    {
+        e.preventDefault();
+    }
 }
