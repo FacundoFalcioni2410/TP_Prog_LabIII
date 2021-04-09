@@ -48,35 +48,79 @@ var ObtenerSueldoMaximo = function (turno) {
             return 25000;
     }
 };
+var AdministrarSpanError = function (id, bool) {
+    var span = document.getElementById(id);
+    if (bool) {
+        span.style.display = "block";
+    }
+    else {
+        span.style.display = "none";
+    }
+};
 var AdministrarValidaciones = function (e) {
     var sueldoMaximo = ObtenerSueldoMaximo(ObtenerTurnoSeleccionado());
     var dni = parseInt(document.getElementById("txtDni").value);
     var sueldo = parseInt(document.getElementById("txtSueldo").value);
     var legajo = parseInt(document.getElementById("txtLegajo").value);
-    if (!ValidarCamposVacios("txtApellido")
-        || !ValidarCamposVacios("txtNombre")) {
-        alert("Hay campo/s vacio/s");
+    if (!ValidarCamposVacios("txtApellido")) {
+        AdministrarSpanError("spanTxtApellido", true);
+    }
+    else {
+        AdministrarSpanError("spanTxtDni", false);
+    }
+    if (!ValidarCamposVacios("txtNombre")) {
+        AdministrarSpanError("spanTxtNombre", true);
         e.preventDefault();
-        return;
+    }
+    else {
+        AdministrarSpanError("spanTxtNombre", false);
     }
     if (!ValidarCombo("cboSexo", "---")) {
-        alert("Debe seleccionar el campo sexo");
+        AdministrarSpanError("spanCboSexo", true);
         e.preventDefault();
-        return;
+    }
+    else {
+        AdministrarSpanError("spanCboSexo", false);
     }
     if (!ValidarRangoNumerico(dni, 1000000, 55000000)) {
-        alert("El Dni debe ser mayor igual a 1 Millon y menor igual a 55 millones");
+        AdministrarSpanError("spanTxtDni", true);
         e.preventDefault();
-        return;
+    }
+    else {
+        AdministrarSpanError("spanTxtDni", false);
     }
     if (!ValidarRangoNumerico(legajo, 100, 550)) {
-        alert("El legajo debe ser mayor igual a 100 y menor igual a 550");
+        AdministrarSpanError("spanTxtLegajo", true);
         e.preventDefault();
-        return;
+    }
+    else {
+        AdministrarSpanError("spanTxtLegajo", false);
     }
     if (!ValidarRangoNumerico(sueldo, 8000, sueldoMaximo)) {
-        alert("El sueldo debe ser mayor igual a 8000 y menor igual a " + sueldoMaximo);
+        AdministrarSpanError("spanTxtSueldo", true);
         e.preventDefault();
-        return;
     }
+    else {
+        AdministrarSpanError("spanTxtSueldo", false);
+    }
+};
+var VerificarValidacionesLogin = function (e) {
+    var dni = parseInt(document.getElementById("txtDni").value);
+    if (!ValidarRangoNumerico(dni, 1000000, 55000000)) {
+        AdministrarSpanError("spanTxtDni", true);
+        e.preventDefault();
+        return false;
+    }
+    else {
+        AdministrarSpanError("spanTxtDni", false);
+    }
+    if (!ValidarCamposVacios("txtApellido")) {
+        AdministrarSpanError("spanTxtApellido", true);
+        e.preventDefault();
+        return false;
+    }
+    else {
+        AdministrarSpanError("spanTxtApellido", false);
+    }
+    return true;
 };

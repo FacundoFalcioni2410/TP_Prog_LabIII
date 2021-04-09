@@ -35,16 +35,17 @@
                     break;
             }
 
-            $path = "./archivos/empleados.txt";
+            $path = "../archivos/empleados.txt";
 
             $empleado = new Empleado($nombre,$apellido,$dni,$sexo,$legajo,$sueldo,$turno);
             $fabrica = new Fabrica("X",7);
+
             if(!file_exists($path))
             {
                 $archivo = fopen($path,"w");
                 fclose($archivo);
             }
-            $fabrica = $fabrica->TraerDeArchivo($path);
+            $fabrica->TraerDeArchivo($path);
             if($fabrica->AgregarEmpleado($empleado))
             {
                 $fabrica->GuardarArchivo($path);

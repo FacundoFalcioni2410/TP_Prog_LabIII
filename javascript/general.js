@@ -30,3 +30,11 @@ var AdministrarValidaciones = function (e) {
         return;
     }
 };
+var VerificarValidacionesLogin = function (e) {
+    if (!ValidarRangoNumerico("txtDni", 1000000, 55000000)) {
+        AdministrarSpanError("spanTxtDni", true);
+        e.preventDefault();
+        return false;
+    }
+    return true;
+};

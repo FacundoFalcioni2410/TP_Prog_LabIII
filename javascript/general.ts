@@ -4,35 +4,93 @@ const AdministrarValidaciones = (e: Event) =>{
     let sueldo: number = parseInt((<HTMLInputElement> document.getElementById("txtSueldo")).value);
     let legajo: number = parseInt((<HTMLInputElement> document.getElementById("txtLegajo")).value);
     
-    if(!ValidarCamposVacios("txtApellido")
-      || !ValidarCamposVacios("txtNombre"))
+    if(!ValidarCamposVacios("txtApellido"))
     {
-        alert("Hay campo/s vacio/s");
+        AdministrarSpanError("spanTxtApellido", true);
         e.preventDefault();
-        return;
     }
+    else
+    {
+        AdministrarSpanError("spanTxtDni", false);
+    }
+
+
+    if(!ValidarCamposVacios("txtNombre"))
+    {
+        AdministrarSpanError("spanTxtNombre", true);
+        e.preventDefault();
+    }
+    else
+    {
+        AdministrarSpanError("spanTxtNombre", false);
+    }
+
+    
     if(!ValidarCombo("cboSexo","---"))
     {
-        alert("Debe seleccionar el campo sexo");
+        AdministrarSpanError("spanCboSexo", true);
         e.preventDefault();
-        return;
     }
+    else
+    {
+        AdministrarSpanError("spanCboSexo", false);
+    }
+
     if(!ValidarRangoNumerico(dni,1000000,55000000))
     {
-        alert("El Dni debe ser mayor igual a 1 Millon y menor igual a 55 millones");
+        AdministrarSpanError("spanTxtDni", true);
         e.preventDefault();
-        return;
     }
+    else
+    {
+        AdministrarSpanError("spanTxtDni", false);
+    }
+
     if(!ValidarRangoNumerico(legajo,100,550))
     {
-        alert("El legajo debe ser mayor igual a 100 y menor igual a 550");
+        AdministrarSpanError("spanTxtLegajo", true);
         e.preventDefault();
-        return;
     }
+    else
+    {
+        AdministrarSpanError("spanTxtLegajo", false);
+    }
+
     if(!ValidarRangoNumerico(sueldo,8000,sueldoMaximo))
     {
-        alert(`El sueldo debe ser mayor igual a 8000 y menor igual a ${sueldoMaximo}`);
+        AdministrarSpanError("spanTxtSueldo", true);
         e.preventDefault();
-        return;
     }
+    else
+    {
+        AdministrarSpanError("spanTxtSueldo", false);
+    }
+}
+
+const VerificarValidacionesLogin: Function = (e: Event): boolean =>{
+    let dni: number = parseInt((<HTMLInputElement> document.getElementById("txtDni")).value);
+    
+    if(!ValidarRangoNumerico(dni,1000000,55000000))
+    {
+        AdministrarSpanError("spanTxtDni", true);
+        e.preventDefault();
+        return false;
+    }
+    else
+    {
+        AdministrarSpanError("spanTxtDni", false);
+    }
+    
+    if(!ValidarCamposVacios("txtApellido"))
+    {
+        AdministrarSpanError("spanTxtApellido", true);
+        e.preventDefault();
+        return false;
+    }
+    else
+    {
+        AdministrarSpanError("spanTxtApellido", false);
+    }
+
+    return true;
 }

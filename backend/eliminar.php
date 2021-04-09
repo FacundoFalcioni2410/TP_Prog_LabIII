@@ -12,9 +12,8 @@
         require_once("empleado.php");
 
         $legajo = isset($_GET["legajo"]) ? $_GET["legajo"] : 0;
-        $path = "./archivos/empleados.txt";
+        $path = "../archivos/empleados.txt";
         $archivo = fopen($path, "r");
-        $flag = false;
         do
         {
             $linea = fgets($archivo);
@@ -26,7 +25,7 @@
                 {
                     $empleado = new Empleado($arr[0],$arr[1],$arr[3],$arr[2],$arr[4],$arr[5],$arr[6]);
                     $fabrica = new Fabrica("",7);
-                    $fabrica = $fabrica->TraerDeArchivo($path);
+                    $fabrica->TraerDeArchivo($path);
                     if($fabrica->EliminarEmpleado($empleado))
                     {
                         $fabrica->GuardarArchivo($path);

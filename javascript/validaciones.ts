@@ -66,3 +66,15 @@ const ObtenerSueldoMaximo: Function = (turno: string): number =>{
             return 25000;
     }
 }
+
+const AdministrarSpanError: Function = (id: string, bool: boolean):void =>{
+    let span: HTMLElement = (<HTMLElement> document.getElementById(id));
+    if(bool)
+    {
+        span.style.display = "block";
+    }
+    else
+    {
+        span.style.display = "none";
+    }
+}
