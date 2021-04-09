@@ -19,7 +19,7 @@
             </th>
         </tr>
         <tr>
-            <td style="text-align:left;padding-left:15px">
+            <td style="text-align:left;padding-left:15px" colspan="3">
                 <hr>
             </td>
         </tr>
@@ -40,24 +40,21 @@
                             <td style=text-align:left;padding-left:15px colspan=2>
                               $cadena
                             </td style=text-align:left;padding-left:15px colspan=2>
-                          </tr>
-                          <tr>
                             <td style=text-align:left;padding-left:15px colspan=2>
-                                <a href=eliminar.php?legajo=$arr[4]>Eliminar</a>
+                            <a href=eliminar.php?legajo=$arr[4]>Eliminar</a>
                             </td>
                           </tr>";
                 }
             }while(!feof($archivo));
             fclose($archivo);
-            echo 
-                "<tr>
-                    <td style=text-align:left;padding-left:15px>
-                        <hr>
-                    </td>
-                </tr>
-            </table>";
-            echo(" <br> <a href='index.html'>Alta de empleados</a>");
         }
-    ?>
+        ?>
+            <tr>
+                <td style="text-align:left;padding-left:15px" colspan="3">
+                    <hr>
+                </td>
+            </tr>
+        </table>
+        <br> <a href='../index.html'>Alta de empleados</a>
 </body>
 </html>

@@ -25,13 +25,13 @@
             switch($turno)
             {
                 case "0":
-                    $turno = "Mañana";
+                    $turno = "M";
                     break;
                 case "1":
-                    $turno = "Tarde";
+                    $turno = "T";
                     break;
                 case "2":
-                    $turno = "Noche";
+                    $turno = "N";
                     break;
             }
 
@@ -53,7 +53,7 @@
             }
             else
             {
-                echo "Hubo un error <a href='index.html'>Inicio</a>";
+                echo "Hubo un error <a href='../index.html'>Alta de empleados</a>";
             }
         ?>
     </div>
