@@ -2,16 +2,54 @@
     require_once("./backend/fabrica.php");
     require_once("./backend/empleado.php");
     include_once("./backend/validarSesion.php");
-    $dni = isset($_POST["dni"]) ? $_POST["dni"] : 0; 
+    require_once('./backend/Fabrica.php');
+    
+    $dni= null;
+    $apellido= null;
+    $nombre= null;
+    $sexo= null;
+    $legajo= null;
+    $sueldo= null;
+    $turno= null;
+    $foto= null;
+    $dni = $_POST["dni"]?? NULL;
+    if($dni!=null)
+    {
+        $path="./archivos/empleados.txt";
+        $fabrica = new Fabrica(".",7);
+        $fabrica->TraerDeArchivo($path);
+        $empleadoaModificar=null;
+    }
+
+            $path = "./archivos/empleados.txt";
+            $fabrica = new Fabrica("",7);
+            $fabrica->TraerDeArchivo($path);
+            $empleadoaModificar = null;
+
+            foreach($fabrica->GetEmpleados() as $item)
+            {
+                if($item->GetDni() == $dni)
+                {
+                    $empleadoaModificar = $item;
+                    $apellido=$empleadoaModificar->GetApellido();
+                    $nombre=$empleadoaModificar->GetNombre();
+                    $sexo=$empleadoaModificar->GetSexo();
+                    $legajo=$empleadoaModificar->GetLegajo();
+                    $sueldo=$empleadoaModificar->GetSueldo();
+                    $turno=$empleadoaModificar->GetTurno();
+                    $foto=$empleadoaModificar->GetPathFoto();
+                    break;
+                }
+            }
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <?php 
         if($dni != 0)
         {
             echo "<title>HTML 5 Formulario Modificar Empleado</title>";
@@ -20,12 +58,13 @@
         {
             echo "<title>HTML 5 - Formulario Alta Empleado</title>";
         }
-    ?>
+        ?>
     <script src="javascript/funciones.js"></script>
 </head>
 <body>
-        <?php
-            if($dni !== 0)
+    <?php
+            ValidarSesion("./login.html");
+            if($dni != 0)
             {
                 echo "<h2>Modificar Empleado</h2>";
             }
@@ -33,19 +72,10 @@
             {
                 echo "<h2>Alta de Empleado</h2>";
             }
-            $path = "./archivos/empleados.txt";
-            $fabrica = new Fabrica("",7);
-            $fabrica->TraerDeArchivo($path);
-
-            foreach($fabrica->GetEmpleados() as $item)
-            {
-                if($item->GetDni() == $dni)
-                {
-                    $empleado = $item;
-                    break;
-                }
-            }
+            
+            
         ?>
+    <a href="./backend/cerrarSesion.php">Cerrar sesion</a>
     <table align="center">
         <form action="./backend/administracion.php" method="POST" enctype="multipart/form-data">
 
@@ -61,24 +91,25 @@
                 <td style="text-align:left;padding-left:15px" >DNI: </td>
                 <td style="text-align:left;padding-left:15px">
                     <input type="number" name="txtDni" id="txtDni" min="1000000" 
-                    <?php
-                        echo "value=$dni readonly";
-                    ?>
-                    >
+                    value=<?php echo $dni; if($dni != null) echo " readonly"?>>
                     <span id="spanTxtDni" style= display:none>*</span>
                 </td>
             </tr>
             <tr>
                 <td style="text-align:left;padding-left:15px">Apellido: </td>
                 <td style="text-align:left;padding-left:15px">
-                    <input type="text" name="txtApellido" id="txtApellido">
+                    <input type="text" name="txtApellido" id="txtApellido"
+                    value=<?php echo $apellido?>
+                    >
                     <span id="spanTxtApellido" style= display:none>*</span>
                 </td>
             </tr>
             <tr>
                 <td style="text-align:left;padding-left:15px">Nombre: </td>
                 <td style="text-align:left;padding-left:15px">
-                    <input type="text" name="txtNombre" id="txtNombre">
+                    <input type="text" name="txtNombre" id="txtNombre"
+                    value=<?php echo $nombre?>
+                    >
                     <span id="spanTxtNombre" style= display:none>*</span>
                 </td>
             </tr>
@@ -87,8 +118,12 @@
                 <td style="text-align:left;padding-left:15px">
                     <select name="cboSexo" id="cboSexo">
                         <option value="---">Seleccione</option>
-                        <option value="F">Femenino</option>
-                        <option value="M">Masculino</option>
+                        <option value="F" 
+                        <?php echo ($sexo == "F") ? "selected" : "";?>
+                        >Femenino</option>
+                        <option value="M"
+                        <?php echo ($sexo == "M") ? "selected" : "";?>
+                        >Masculino</option>
                     </select>
                     <span id="spanCboSexo" style= display:none>*</span>
                 </td>
@@ -106,14 +141,18 @@
             <tr>
                 <td style="text-align:left;padding-left:15px">Legajo: </td>
                 <td style="text-align:left;padding-left:15px">
-                    <input type="number" name="txtLegajo" id="txtLegajo" min="100">
+                    <input type="number" name="txtLegajo" id="txtLegajo" min="100"
+                    value=<?php echo $legajo; if($dni != null) echo " readonly"?>
+                    >
                     <span id="spanTxtLegajo" style= display:none>*</span>
                 </td>
             </tr>
             <tr>
                 <td style="text-align:left;padding-left:15px">Sueldo: </td>
                 <td style="text-align:left;padding-left:15px">
-                    <input type="number" step="500" name="txtSueldo" id="txtSueldo" min="8000">
+                    <input type="number" step="500" name="txtSueldo" id="txtSueldo"
+                    value=<?php echo $sueldo?>
+                    >
                     <span id="spanTxtSueldo" style= display:none>*</span>
                 </td>
             </tr>
@@ -122,19 +161,25 @@
             </tr>
             <tr>
                 <td style="text-align:left;padding-left:60px">
-                    <input type="radio" name="rdoTurno" value="0" checked>
+                    <input type="radio" name="rdoTurno" value="0" 
+                    <?php echo ($turno == "M") ? "checked" : "";?>
+                    checked>
                 </td>
                 <td>Mañana</td>
             </tr>
             <tr>
                 <td style="text-align:left;padding-left:60px">
-                    <input type="radio" name="rdoTurno" value="1">
+                    <input type="radio" name="rdoTurno" value="1"
+                    <?php echo ($turno == "T") ? "checked" : "";?>
+                    >
                 </td>
                 <td>Tarde</td>
             </tr>
             <tr>
                 <td style="text-align:left;padding-left:60px">
-                    <input type="radio" name="rdoTurno" value="2">
+                    <input type="radio" name="rdoTurno" value="2"
+                    <?php echo ($turno == "N") ? "checked" : "";?>
+                    >
                 </td>
                 <td>Noche</td>
             </tr>
@@ -143,6 +188,7 @@
                 <td style="text-align:left;padding-left:15px">
                     <input type="file" name="file" id="file">
                     <span id="spanFile" style= display:none>*</span>
+                    <input type="hidden" name="hdnModificar" value=<?php echo ($dni != null) ? "ok" : null?>>
                 </td>
             </tr>
             <tr>
@@ -157,7 +203,7 @@
             </tr>
             <tr>
                 <td colspan="2" align="right">
-                    <input type="submit" onClick="AdministrarValidaciones(event)" name="btnEnviar" id="btnEnviar" value="Enviar">
+                    <input type="submit" onClick="AdministrarValidaciones(event)" name="btnEnviar" id="btnEnviar" value=<?php echo isset($_POST["dni"]) ? "Modificar" : "Enviar";?>>
                 </td>
             </tr>
         </form>

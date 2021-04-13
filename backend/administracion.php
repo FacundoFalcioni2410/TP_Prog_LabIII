@@ -22,6 +22,7 @@
             $turno = isset($_POST["rdoTurno"]) ? $_POST["rdoTurno"] : 0;
             $sueldo = isset($_POST["txtSueldo"]) ? $_POST["txtSueldo"] : 0;
             $file = isset($_FILES["file"]) ? $_FILES["file"] : 0;
+            $modificar = isset($_POST["hdnModificar"]) ? $_POST["hdnModificar"] : 0;
 
             switch($turno)
             {
@@ -38,41 +39,67 @@
 
             $pathDestino = "../fotos/" . $file["name"];
 
+            $path = "../archivos/empleados.txt";
+            $empleado = new Empleado($nombre,$apellido,$dni,$sexo,$legajo,$sueldo,$turno);
+            $fabrica = new Fabrica("X",7);
+            $fabrica->TraerDeArchivo($path);
+            $empleadoModificar = NULL;
+
+            if($modificar == "ok")
+            {
+                foreach($fabrica->GetEmpleados() as $item)
+                {
+                    if($item->GetDni() == $dni)
+                    {
+                        $empleadoModificar = $item;
+                    }
+                }
+            }
+
             if(getimagesize($file["tmp_name"]) != FALSE)
             {
                 $fotoOk = FALSE;
                 $tipoDeArchivo = pathinfo($pathDestino,PATHINFO_EXTENSION);
                 $pathDestino = "../fotos/" . $dni . "-" . $apellido . "." . $tipoDeArchivo;
+                $condicionesFotoOk = FALSE;
 
-                if(!file_exists($pathDestino))
+                if($tipoDeArchivo == "jpg" || $tipoDeArchivo == "bmp" || $tipoDeArchivo == "gif" || $tipoDeArchivo == "png" || $tipoDeArchivo == "jpeg")
                 {
-                    if($tipoDeArchivo == "jpg" || $tipoDeArchivo == "bmp" || $tipoDeArchivo == "gif" || $tipoDeArchivo == "png" || $tipoDeArchivo == "jpeg")
+                    if($file["size"] <= 1000000)
                     {
-                        if($file["size"] <= 1000000)
-                        {
-                            $fotoOk = TRUE;
-                        }
+                        $condicionesFotoOk = TRUE;
                     }
                 }
+
+                if(!file_exists($pathDestino) && $condicionesFotoOk)
+                {
+                    $fotoOk = TRUE;
+                }
+                else if($empleadoModificar != NULL && $condicionesFotoOk)
+                {
+                    $fabrica->EliminarEmpleado($empleadoModificar);
+                    $fabrica->GuardarArchivo($path);
+                    unlink($empleadoModificar->GetPathFoto());
+                    $fotoOk = TRUE;
+                }
             }
-            
             
             if($fotoOk)
             {
                 $path = "../archivos/empleados.txt";
                 $empleado = new Empleado($nombre,$apellido,$dni,$sexo,$legajo,$sueldo,$turno);
                 $fabrica = new Fabrica("X",7);
+                $fabrica->TraerDeArchivo($path);
                 
                 move_uploaded_file($file["tmp_name"],$pathDestino);
                 $empleado->SetPathFoto($pathDestino);
-            
 
                 if(!file_exists($path))
                 {
                     $archivo = fopen($path,"w");
                     fclose($archivo);
                 }
-                $fabrica->TraerDeArchivo($path);
+
                 if($fabrica->AgregarEmpleado($empleado))
                 {
                     $fabrica->GuardarArchivo($path);

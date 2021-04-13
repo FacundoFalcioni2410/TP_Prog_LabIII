@@ -1,12 +1,10 @@
 <?php
     session_start();
-    function ValidarSesion()
+    function ValidarSesion($path)
     {
         if($_SESSION["DNIEmpleado"] == FALSE)
         {
-            header("Location: ../login.html");
+           header("Location: $path");
         }
     }
-
-    ValidarSesion();
 ?>

@@ -14,36 +14,30 @@
         $legajo = isset($_GET["legajo"]) ? $_GET["legajo"] : 0;
         $path = "../archivos/empleados.txt";
         $archivo = fopen($path, "r");
-        do
+        
+
+        $fabrica = new Fabrica("",7);
+        $fabrica->TraerDeArchivo($path);
+        foreach($fabrica->GetEmpleados() as $item)
         {
-            $linea = fgets($archivo);
-            $linea = is_string($linea) ? trim($linea) : false;
-            if($linea != false)
+            if($item->GetLegajo() == $legajo)
             {
-                $arr = explode(" - ",$linea);
-                if($arr[4] == $legajo)
+                if($fabrica->EliminarEmpleado($item))
                 {
-                    $empleado = new Empleado($arr[1],$arr[2],$arr[0],$arr[3],$arr[4],$arr[5],$arr[6]);
-                    $fabrica = new Fabrica("",7);
-                    $fabrica->TraerDeArchivo($path);
-                    if($fabrica->EliminarEmpleado($empleado))
-                    {
-                        unlink($arr[7]);
-                        $fabrica->GuardarArchivo($path);
-                        echo "Empleado eliminado con exito <br>";
-                        echo "<a href='mostrar.php'>Mostrar empleados</a>";
-                        break;
-                    }
-                    else
-                    {
-                        echo "No se pudo eliminar <br>";
-                        echo "<a href='../index.html'>Alta de empleados</a>";
-                        break;
-                    }
+                    unlink($item->GetPathFoto());
+                    $fabrica->GuardarArchivo($path);
+                    echo "Empleado eliminado con exito <br>";
+                    echo "<a href='mostrar.php'>Mostrar empleados</a>";
+                    break;
+                }
+                else
+                {
+                    echo "No se pudo eliminar <br>";
+                    echo "<a href='../index.html'>Alta de empleados</a>";
+                    break;
                 }
             }
-        }while(!feof($archivo));
-        fclose($archivo);
+        }
     ?>    
 </body>
 </html>

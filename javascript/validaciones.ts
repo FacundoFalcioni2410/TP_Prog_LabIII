@@ -1,7 +1,7 @@
 const ValidarCamposVacios: Function = (id: string): boolean =>{
     let valor: string = (<HTMLInputElement> document.getElementById(id)).value;
     valor = valor.replace(/ /g, "");
-    if(valor === "" || valor == undefined)
+    if(valor === "" || valor == null || valor == undefined)
     {
         return false;
     }
@@ -68,10 +68,8 @@ const ObtenerSueldoMaximo: Function = (turno: string): number =>{
     {
         case "Mañana":
             return 20000;
-    
         case "Tarde":
             return 18500;
-    
         default:
             return 25000;
     }

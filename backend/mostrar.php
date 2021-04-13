@@ -27,48 +27,34 @@
             </td>
         </tr>
     <?php
+        ValidarSesion("../login.html");
         $path = "../archivos/empleados.txt";
         $archivo = fopen($path,"r");
         $fabrica = new Fabrica(".", 7);
         $fabrica->TraerDeArchivo($path);
 
-        // if(file_exists($path))
-        // {
-            $empleados = $fabrica->GetEmpleados();
-            // do
-            // {
-            //     $cadena = fgets($archivo);
-            //     $cadena = is_string($cadena) ? trim($cadena) : false;
-            //     if($cadena != false)
-            //     {
-            //         $arr = explode(" - ",$cadena);
-                    foreach($empleados as $item)
-                    {
-                        echo "<tr>
-                            <td style=text-align:left;padding-left:15px colspan=2>
-                              " . $item->__toString() . "   <img src=". $item->GetPathFoto() . " alt=fotoUsuario height=90px widht=90px>
-                            </td style=text-align:left;padding-left:15px colspan=2>
-                            <td style=text-align:left;padding-left:15px colspan=2>
-                            <a href=eliminar.php?legajo=" . $item->GetLegajo() . ">Eliminar</a>
-                            <input type=submit value=Modificar>
-                            <input type=hidden name=dni id=hiddenInput onClick=AdministrarModificar(".$item->GetDni().")>
-                            </td>
-                          </tr>";
-                    }
-        // }
-            // }while(!feof($archivo));
-            // fclose($archivo);
-        // }
-    ?>
-    
-            <tr>
-                <td style="text-align:left;padding-left:15px" colspan="3">
-                    <hr>
+        foreach($fabrica->GetEmpleados() as $item)
+        {
+            echo "<tr>
+                <td style=text-align:left;padding-left:15px colspan=2>
+                    " . $item->__toString() . "   <img src=". $item->GetPathFoto() . " alt=fotoUsuario height=90px widht=90px>
+                </td style=text-align:left;padding-left:15px colspan=2>
+                <td style=text-align:left;padding-left:15px colspan=2>
+                <a href=eliminar.php?legajo=" . $item->GetLegajo() . ">Eliminar</a>
+                <input type=button value=Modificar onClick=AdministrarModificar(".$item->GetDni().")>
                 </td>
-            </tr>
-            </form>
+                </tr>";
+            }
+            echo "<input type=hidden name=dni id=hiddenInput>"
+    ?>
+        <tr>
+            <td style="text-align:left;padding-left:15px" colspan="3">
+                <hr>
+            </td>
+        </tr>
+        </form>
         </table>
-        <a href='../index.html'>Alta de empleados</a> <br>
+        <a href='../index.php'>Alta de empleados</a> <br>
         <a href="cerrarSesion.php">Cerrar sesion</a>
 </body>
 </html>

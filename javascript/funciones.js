@@ -1,7 +1,7 @@
 var ValidarCamposVacios = function (id) {
     var valor = document.getElementById(id).value;
     valor = valor.replace(/ /g, "");
-    if (valor === "" || valor == undefined) {
+    if (valor === "" || valor == null || valor == undefined) {
         return false;
     }
     return true;
@@ -75,7 +75,9 @@ var VerificarValidacionesLogin = function () {
 };
 var AdministrarModificar = function (dni) {
     var input = document.getElementById("hiddenInput");
+    var myForm = document.getElementById('formMostrar');
     input.value = dni;
+    myForm.submit();
 };
 var AdministrarValidaciones = function (e) {
     var sueldoMaximo = ObtenerSueldoMaximo(ObtenerTurnoSeleccionado());
@@ -124,6 +126,13 @@ var AdministrarValidaciones = function (e) {
     else {
         AdministrarSpanError("spanTxtSueldo", false);
     }
+    if (!ValidarCamposVacios("file")) {
+        e.preventDefault();
+        AdministrarSpanError("spanFile", true);
+    }
+    else {
+        AdministrarSpanError("spanFile", false);
+    }
 };
 var AdministrarValidacionesLogin = function (e) {
     var dni = parseInt(document.getElementById("txtDni").value);
@@ -139,16 +148,6 @@ var AdministrarValidacionesLogin = function (e) {
     else {
         AdministrarSpanError("spanTxtApellido", false);
     }
-    // if(!ValidarCamposVacios("file"))
-    // {
-    //     alert("hola1");
-    //     AdministrarSpanError("spanFile", true);
-    // }
-    // else
-    // {
-    //     alert("chau1");
-    //     AdministrarSpanError("spanFile", false);
-    // }
     // if(!ValidarFile("file"))
     // {
     //     alert("hola");

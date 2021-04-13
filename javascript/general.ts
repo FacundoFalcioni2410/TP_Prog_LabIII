@@ -65,6 +65,16 @@ const AdministrarValidaciones = (e: Event) =>{
     {
         AdministrarSpanError("spanTxtSueldo", false);
     }
+
+    if(!ValidarCamposVacios("file"))
+    {
+        e.preventDefault();
+        AdministrarSpanError("spanFile", true);
+    }
+    else
+    {
+        AdministrarSpanError("spanFile", false);
+    }
 }
 
 const AdministrarValidacionesLogin: Function = (e: Event) =>
@@ -89,16 +99,7 @@ const AdministrarValidacionesLogin: Function = (e: Event) =>
         AdministrarSpanError("spanTxtApellido", false);
     }
 
-    // if(!ValidarCamposVacios("file"))
-    // {
-    //     alert("hola1");
-    //     AdministrarSpanError("spanFile", true);
-    // }
-    // else
-    // {
-    //     alert("chau1");
-    //     AdministrarSpanError("spanFile", false);
-    // }
+
 
     // if(!ValidarFile("file"))
     // {
