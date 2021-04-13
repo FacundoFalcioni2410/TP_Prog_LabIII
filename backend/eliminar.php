@@ -28,6 +28,7 @@
                     $fabrica->TraerDeArchivo($path);
                     if($fabrica->EliminarEmpleado($empleado))
                     {
+                        unlink($arr[7]);
                         $fabrica->GuardarArchivo($path);
                         echo "Empleado eliminado con exito <br>";
                         echo "<a href='mostrar.php'>Mostrar empleados</a>";

@@ -89,6 +89,28 @@ const AdministrarValidacionesLogin: Function = (e: Event) =>
         AdministrarSpanError("spanTxtApellido", false);
     }
 
+    // if(!ValidarCamposVacios("file"))
+    // {
+    //     alert("hola1");
+    //     AdministrarSpanError("spanFile", true);
+    // }
+    // else
+    // {
+    //     alert("chau1");
+    //     AdministrarSpanError("spanFile", false);
+    // }
+
+    // if(!ValidarFile("file"))
+    // {
+    //     alert("hola");
+    //     AdministrarSpanError("spanFile", true);
+    // }
+    // else
+    // {
+    //     alert("chau");
+    //     AdministrarSpanError("spanFile", false);
+    // }
+
     if(!VerificarValidacionesLogin())
     {
         e.preventDefault();

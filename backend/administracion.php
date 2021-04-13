@@ -21,6 +21,7 @@
             $legajo = isset($_POST["txtLegajo"]) ? $_POST["txtLegajo"] : 0;
             $turno = isset($_POST["rdoTurno"]) ? $_POST["rdoTurno"] : 0;
             $sueldo = isset($_POST["txtSueldo"]) ? $_POST["txtSueldo"] : 0;
+            $file = isset($_FILES["file"]) ? $_FILES["file"] : 0;
 
             switch($turno)
             {
@@ -35,25 +36,52 @@
                     break;
             }
 
-            $path = "../archivos/empleados.txt";
+            $pathDestino = "../fotos/" . $file["name"];
 
-            $empleado = new Empleado($nombre,$apellido,$dni,$sexo,$legajo,$sueldo,$turno);
-            $fabrica = new Fabrica("X",7);
+            if(getimagesize($file["tmp_name"]) != FALSE)
+            {
+                $fotoOk = FALSE;
+                $tipoDeArchivo = pathinfo($pathDestino,PATHINFO_EXTENSION);
+                $pathDestino = "../fotos/" . $dni . "-" . $apellido . "." . $tipoDeArchivo;
 
-            if(!file_exists($path))
-            {
-                $archivo = fopen($path,"w");
-                fclose($archivo);
+                if(!file_exists($pathDestino))
+                {
+                    if($tipoDeArchivo == "jpg" || $tipoDeArchivo == "bmp" || $tipoDeArchivo == "gif" || $tipoDeArchivo == "png" || $tipoDeArchivo == "jpeg")
+                    {
+                        if($file["size"] <= 1000000)
+                        {
+                            $fotoOk = TRUE;
+                        }
+                    }
+                }
             }
-            $fabrica->TraerDeArchivo($path);
-            if($fabrica->AgregarEmpleado($empleado))
+            
+            
+            if($fotoOk)
             {
-                $fabrica->GuardarArchivo($path);
-                echo "<a href='mostrar.php'>Mostrar empleados</a>";
-            }
-            else
-            {
-                echo "Hubo un error <a href='../index.html'>Alta de empleados</a>";
+                $path = "../archivos/empleados.txt";
+                $empleado = new Empleado($nombre,$apellido,$dni,$sexo,$legajo,$sueldo,$turno);
+                $fabrica = new Fabrica("X",7);
+                
+                move_uploaded_file($file["tmp_name"],$pathDestino);
+                $empleado->SetPathFoto($pathDestino);
+            
+
+                if(!file_exists($path))
+                {
+                    $archivo = fopen($path,"w");
+                    fclose($archivo);
+                }
+                $fabrica->TraerDeArchivo($path);
+                if($fabrica->AgregarEmpleado($empleado))
+                {
+                    $fabrica->GuardarArchivo($path);
+                    echo "<a href='mostrar.php'>Mostrar empleados</a>";
+                }
+                else
+                {
+                    echo "Hubo un error <a href='../index.html'>Alta de empleados</a>";
+                }
             }
         ?>
     </div>

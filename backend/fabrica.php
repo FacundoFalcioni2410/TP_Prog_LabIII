@@ -15,6 +15,11 @@
             $this->_razonSocial = $razonSocial;
         }
 
+        public function GetEmpleados()
+        {
+            return $this->_empleados;
+        }
+
         public function AgregarEmpleado($empleado)
         {
             if(is_object($empleado) && get_class($empleado) == "Empleado")
@@ -92,6 +97,7 @@
                             if($arr[0] != "" && $arr[0] != "\r\n")
                             {   
                                 $empleado = new Empleado($arr[1],$arr[2],$arr[0],$arr[3],$arr[4],$arr[5],$arr[6]);
+                                $empleado->SetPathFoto($arr[7]);
                                 $this->AgregarEmpleado($empleado);
                             }
                         }
