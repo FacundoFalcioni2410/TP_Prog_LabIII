@@ -1,4 +1,7 @@
 <?php
+    require_once("empleado.php");
+    require_once("fabrica.php");
+
     $dni = isset($_POST["dni"]) ? $_POST["dni"] : 0;
     $apellido = isset($_POST["apellido"]) ? $_POST["apellido"] : 0;
     
@@ -6,23 +9,18 @@
     
     if(file_exists($path))
     {
-        $archivo = fopen($path,"r");
-        $flag = FALSE;
-        do
+        $fabrica = new Fabrica(".",7);
+        $fabrica->TraerDeArchivo($path);
+
+        foreach($fabrica->GetEmpleados() as $item)
         {
-            $cadena = fgets($archivo);
-            $cadena = is_string($cadena) ? trim($cadena) : false;
-            if($cadena != false)
+            if($item->GetDni() == $dni && $item->GetApellido() == $apellido)
             {
-                $arr = explode(" - ", $cadena);
-                if($arr[0] == $dni && $arr[2] == $apellido)
-                {
-                    $flag = TRUE;
-                    break;
-                }                
+                $flag = TRUE;
+                break;
             }
-        }while(!feof($archivo));
-        
+        }
+
         if($flag)
         {
             session_start();

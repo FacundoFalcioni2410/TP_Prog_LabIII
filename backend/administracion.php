@@ -105,10 +105,10 @@
                     $fabrica->GuardarArchivo($path);
                     echo "<a href='mostrar.php'>Mostrar empleados</a>";
                 }
-                else
-                {
-                    echo "Hubo un error <a href='../index.html'>Alta de empleados</a>";
-                }
+            }
+            else
+            {
+                echo "Hubo un error con la foto <a href='../index.php'>Alta de empleados</a>";
             }
         ?>
     </div>

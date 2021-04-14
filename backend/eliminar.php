@@ -33,7 +33,7 @@
                 else
                 {
                     echo "No se pudo eliminar <br>";
-                    echo "<a href='../index.html'>Alta de empleados</a>";
+                    echo "<a href='../index.php'>Alta de empleados</a>";
                     break;
                 }
             }
