@@ -32,20 +32,37 @@
         $archivo = fopen($path,"r");
         $fabrica = new Fabrica(".", 7);
         $fabrica->TraerDeArchivo($path);
-
-        foreach($fabrica->GetEmpleados() as $item)
+        $arrEmpleados = $fabrica->GetEmpleados();
+        
+        if(count($arrEmpleados) == 0)
         {
             echo "<tr>
-                <td style=text-align:left;padding-left:15px colspan=2>
-                    " . $item->__toString() . "   <img src=". $item->GetPathFoto() . " alt=fotoUsuario height=90px widht=90px>
-                </td style=text-align:left;padding-left:15px colspan=2>
-                <td style=text-align:left;padding-left:15px colspan=2>
-                <a href=eliminar.php?legajo=" . $item->GetLegajo() . ">Eliminar</a>
-                <input type=button value=Modificar onClick=AdministrarModificar(".$item->GetDni().")>
-                </td>
-                </tr>";
-            }
-            echo "<input type=hidden name=dni id=hiddenInput>"
+                    <td style=text-align:left;padding-left:15px colspan=2>
+                        No hay empleados para mostrar.
+                    </td>
+                  </tr>";
+        }
+        else
+        {
+            foreach($arrEmpleados as $item)
+            {
+                echo "<tr>
+                    <td style=text-align:left;padding-left:15px colspan=2>
+                        {$item->__toString()}
+                    </td>
+                    <td style=text-align:left;padding-left:15px colspan=2>
+                    <img src={$item->GetPathFoto()} alt=fotoUsuario height=90px widht=90px>
+                    </td>
+                
+                    <td style=text-align:left;padding-left:15px colspan=2>
+                    <a href=eliminar.php?legajo={$item->GetLegajo()}>Eliminar</a>
+                    <input type=button value=Modificar onClick=AdministrarModificar({$item->GetDni()})>
+                    </td>
+                    </tr>";
+                }
+                echo "<input type=hidden name=dni id=hiddenInput>";
+        }
+
     ?>
         <tr>
             <td style="text-align:left;padding-left:15px" colspan="3">

@@ -8,16 +8,6 @@ const ValidarCamposVacios: Function = (id: string): boolean =>{
     return true;
 }
 
-// const ValidarFile: Function = (id: string): boolean =>{
-//     let input: HTMLInputElement = (<HTMLInputElement> document.getElementById(id));
-//     if(input.files?.item.)
-//     {
-//         return true;
-//     }
-    
-//     return false;
-// }
-
 const ValidarRangoNumerico: Function = (numero: number, min: number, max: number): boolean =>{
     if(numero >= min && numero <= max)
     {
@@ -101,7 +91,7 @@ const VerificarValidacionesLogin: Function = (): boolean =>{
 
 const AdministrarModificar: Function = (dni: string):void =>{
     let input: HTMLInputElement = (<HTMLInputElement> document.getElementById("hiddenInput"));
-    var myForm = <HTMLFormElement>document.getElementById('formMostrar');
+    let myForm = (<HTMLFormElement> document.getElementById('formMostrar'));
     input.value = dni;
     myForm.submit();
 }

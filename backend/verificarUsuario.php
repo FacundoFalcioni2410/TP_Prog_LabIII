@@ -4,8 +4,8 @@
 
     $dni = isset($_POST["dni"]) ? $_POST["dni"] : 0;
     $apellido = isset($_POST["apellido"]) ? $_POST["apellido"] : 0;
-    
     $path = "../archivos/empleados.txt";
+    $flag = FALSE;
     
     if(file_exists($path))
     {

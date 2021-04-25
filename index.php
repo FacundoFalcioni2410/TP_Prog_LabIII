@@ -1,7 +1,7 @@
 <?php
     require_once("./backend/fabrica.php");
     require_once("./backend/empleado.php");
-    include_once("./backend/validarSesion.php");
+    require_once("./backend/validarSesion.php");
     require_once('./backend/Fabrica.php');
     
     $dni= null;
@@ -12,7 +12,7 @@
     $sueldo= null;
     $turno= null;
     $foto= null;
-    $dni = $_POST["dni"]?? NULL;
+    $dni = $_POST["dni"] ?? NULL;
     if($dni!=null)
     {
         $path="./archivos/empleados.txt";
@@ -37,7 +37,6 @@
                     $legajo=$empleadoaModificar->GetLegajo();
                     $sueldo=$empleadoaModificar->GetSueldo();
                     $turno=$empleadoaModificar->GetTurno();
-                    $foto=$empleadoaModificar->GetPathFoto();
                     break;
                 }
             }
@@ -203,7 +202,7 @@
             </tr>
             <tr>
                 <td colspan="2" align="right">
-                    <input type="submit" onClick="AdministrarValidaciones(event)" name="btnEnviar" id="btnEnviar" value=<?php echo isset($_POST["dni"]) ? "Modificar" : "Enviar";?>>
+                    <input type="submit" onClick="AdministrarValidaciones(event)" name="btnEnviar" id="btnEnviar" value=<?php echo ($dni != null) ? "Modificar" : "Enviar";?>>
                 </td>
             </tr>
         </form>

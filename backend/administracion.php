@@ -40,13 +40,22 @@
             $pathDestino = "../fotos/" . $file["name"];
 
             $path = "../archivos/empleados.txt";
+
+            if(!file_exists($path))
+            {
+                $archivo = fopen($path,"w");
+                fclose($archivo);
+            }
+
             $empleado = new Empleado($nombre,$apellido,$dni,$sexo,$legajo,$sueldo,$turno);
             $fabrica = new Fabrica("X",7);
-            $fabrica->TraerDeArchivo($path);
             $empleadoModificar = NULL;
+            $fotoOk = FALSE;
+            $condicionesFotoOk = FALSE;
 
             if($modificar == "ok")
             {
+                $fabrica->TraerDeArchivo($path);
                 foreach($fabrica->GetEmpleados() as $item)
                 {
                     if($item->GetDni() == $dni)
@@ -58,10 +67,9 @@
 
             if(getimagesize($file["tmp_name"]) != FALSE)
             {
-                $fotoOk = FALSE;
                 $tipoDeArchivo = pathinfo($pathDestino,PATHINFO_EXTENSION);
+                $apellido = str_replace(' ','',$apellido);
                 $pathDestino = "../fotos/" . $dni . "-" . $apellido . "." . $tipoDeArchivo;
-                $condicionesFotoOk = FALSE;
 
                 if($tipoDeArchivo == "jpg" || $tipoDeArchivo == "bmp" || $tipoDeArchivo == "gif" || $tipoDeArchivo == "png" || $tipoDeArchivo == "jpeg")
                 {
@@ -75,7 +83,8 @@
                 {
                     $fotoOk = TRUE;
                 }
-                else if($empleadoModificar != NULL && $condicionesFotoOk)
+                
+                if($empleadoModificar != NULL && $condicionesFotoOk)
                 {
                     $fabrica->EliminarEmpleado($empleadoModificar);
                     $fabrica->GuardarArchivo($path);
@@ -86,29 +95,26 @@
             
             if($fotoOk)
             {
-                $path = "../archivos/empleados.txt";
                 $empleado = new Empleado($nombre,$apellido,$dni,$sexo,$legajo,$sueldo,$turno);
-                $fabrica = new Fabrica("X",7);
                 $fabrica->TraerDeArchivo($path);
-                
                 move_uploaded_file($file["tmp_name"],$pathDestino);
                 $empleado->SetPathFoto($pathDestino);
-
-                if(!file_exists($path))
-                {
-                    $archivo = fopen($path,"w");
-                    fclose($archivo);
-                }
 
                 if($fabrica->AgregarEmpleado($empleado))
                 {
                     $fabrica->GuardarArchivo($path);
                     echo "<a href='mostrar.php'>Mostrar empleados</a>";
                 }
+                else
+                {
+                    unlink($empleado->GetPathFoto());
+                    echo "Limite de empleados alcanzado <br>
+                          <a href=./mostrar.php>Mostrar Empleados</a>";
+                }
             }
             else
             {
-                echo "Hubo un error con la foto <a href='../index.php'>Alta de empleados</a>";
+                echo "Hubo un error con la foto <br> <a href='../index.php'>Alta de empleados</a>";
             }
         ?>
     </div>
