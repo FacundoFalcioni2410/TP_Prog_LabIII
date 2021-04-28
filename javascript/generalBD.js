@@ -1,5 +1,5 @@
 "use strict";
-var AdministrarValidaciones = function (e) {
+var AdministrarValidacionesBD = function (e) {
     var sueldoMaximo = ObtenerSueldoMaximo(ObtenerTurnoSeleccionado());
     var dni = parseInt(document.getElementById("txtDni").value);
     var sueldo = parseInt(document.getElementById("txtSueldo").value);
@@ -54,25 +54,7 @@ var AdministrarValidaciones = function (e) {
         ValidarRangoNumerico(dni, 1000000, 55000000) &&
         ValidarRangoNumerico(legajo, 100, 550) &&
         ValidarRangoNumerico(sueldo, 8000, sueldoMaximo)) {
-        Main.CargarDatos();
+        MainBD.CargarDatosBD();
     }
 };
-var AdministrarValidacionesLogin = function (e) {
-    var dni = parseInt(document.getElementById("txtDni").value);
-    if (!ValidarRangoNumerico(dni, 1000000, 55000000)) {
-        AdministrarSpanError("spanTxtDni", true);
-    }
-    else {
-        AdministrarSpanError("spanTxtDni", false);
-    }
-    if (!ValidarCamposVacios("txtApellido")) {
-        AdministrarSpanError("spanTxtApellido", true);
-    }
-    else {
-        AdministrarSpanError("spanTxtApellido", false);
-    }
-    if (!VerificarValidacionesLogin()) {
-        e.preventDefault();
-    }
-};
-//# sourceMappingURL=general.js.map
+//# sourceMappingURL=generalBD.js.map

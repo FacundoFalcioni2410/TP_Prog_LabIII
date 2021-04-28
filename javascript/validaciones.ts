@@ -35,30 +35,20 @@ const ObtenerTurnoSeleccionado: Function = (): string =>{
         {
             if(elemento[i].checked)
             {
-                flag = parseInt(elemento[i].value);
-                break;
+                return elemento[i].value;
             }
         }
     }
 
-    if(flag === 1)
-    {
-        return "Tarde";
-    }
-    else if(flag === 2)
-    {
-        return "Noche"
-    }
-
-    return "Mañana";
+    return "0";
 }
 
 const ObtenerSueldoMaximo: Function = (turno: string): number =>{
     switch(turno)
     {
-        case "Mañana":
+        case "0":
             return 20000;
-        case "Tarde":
+        case "1":
             return 18500;
         default:
             return 25000;

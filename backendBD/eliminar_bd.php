@@ -8,32 +8,27 @@
 </head>
 <body>
     <?php
-        require_once("fabrica.php");
+        require_once("fabrica_bd.php");
         require_once("empleado.php");
 
         $legajo = isset($_GET["legajo"]) ? $_GET["legajo"] : 0;
-        $path = "../archivos/empleados.txt";
-        $archivo = fopen($path, "r");
-        
 
         $fabrica = new Fabrica("",7);
-        $fabrica->TraerDeArchivo($path);
+        $fabrica->TraerDeBaseDeDatos();
         foreach($fabrica->GetEmpleados() as $item)
         {
             if($item->GetLegajo() == $legajo)
             {
-                if($fabrica->EliminarEmpleado($item))
+                if($fabrica->EliminarDeBaseDeDatos($item))
                 {
-                    unlink($item->GetPathFoto());
-                    $fabrica->GuardarArchivo($path);
-                    // echo "Empleado eliminado con exito <br>";
-                    // echo "<a href='mostrar.php'>Mostrar empleados</a>";
+                    echo "Empleado eliminado con exito <br>";
+                    echo "<a href='mostrar.php'>Mostrar empleados</a>";
                     break;
                 }
                 else
                 {
-                    // echo "No se pudo eliminar <br>";
-                    // echo "<a href='../index.php'>Alta de empleados</a>";
+                    echo "No se pudo eliminar <br>";
+                    echo "<a href='../index.php'>Alta de empleados</a>";
                     break;
                 }
             }

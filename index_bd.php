@@ -1,7 +1,7 @@
 <?php
-    require_once("./backend/fabrica.php");
-    require_once("./backend/empleado.php");
-    require_once("./backend/validarSesion.php");
+    require_once("./backendBD/empleado.php");
+    require_once("./backendBD/validarSesion_bd.php");
+    require_once('./backendBD/fabrica_bd.php');
     
     $apellido= null;
     $nombre= null;
@@ -16,7 +16,7 @@
     {
         $path="./archivos/empleados.txt";
         $fabrica = new Fabrica(".",7);
-        $fabrica->TraerDeArchivo($path);
+        $fabrica->TraerDeBaseDeDatos();
         $empleadoaModificar=null;
     
         foreach($fabrica->GetEmpleados() as $item)
@@ -42,7 +42,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script type="text/javascript" src="./javascript/funciones.js"></script>
+        <script type="text/javascript" src="./javascript/funcionesBD.js"></script>
         <?php 
         if($dni != 0)
         {
@@ -57,7 +57,7 @@
 </head>
 <body>
     <?php
-        ValidarSesion("./login.html");
+        ValidarSesion("./login_bd.html");
         if($dni != 0)
         {
             echo "<h2>Modificar Empleado</h2>";
@@ -194,7 +194,7 @@
             </tr>
             <tr>
                 <td colspan="2" align="right">
-                    <input type="submit" onclick="AdministrarValidaciones(event)" name="btnEnviar" id="btnEnviar" value=<?php echo ($dni != null) ? "Modificar" : "Enviar";?>>
+                    <input type="submit" onclick="AdministrarValidacionesBD(event)" name="btnEnviar" id="btnEnviar" value=<?php echo ($dni != null) ? "Modificar" : "Enviar";?>>
                 </td>
             </tr>
         </form>

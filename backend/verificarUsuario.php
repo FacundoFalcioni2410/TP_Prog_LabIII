@@ -25,7 +25,7 @@
         {
             session_start();
             $_SESSION["DNIEmpleado"] = $dni;
-            header("Location: mostrar.php");
+            header("Location: ../ajax.php");
         }
         else
         {
