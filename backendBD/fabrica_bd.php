@@ -128,33 +128,6 @@
             }
         }
 
-        public function ModificarBaseDeDatos($empleado)
-        {
-            $accesoDatos = AccesoDatos::ObjetoAccesoDatos();
-
-            $sql = "UPDATE empleados SET nombre = :nombre, apellido = : apellido, sexo = :sexo, sueldo = :sueldo, turno = :turno, path_foto = :path_foto WHERE legajo = :legajo";
-
-            $query = $accesoDatos->RetornarConsulta($sql);
-
-            $query->bindValue(':nombre', $empleado->GetNombre(), PDO::PARAM_STR);
-            $query->bindValue(':apellido', $empleado->GetApellido(), PDO::PARAM_STR);
-            $query->bindValue(':sexo', $empleado->GetSexo(), PDO::PARAM_STR);
-            $query->bindValue(':legajo', $empleado->GetLegajo(), PDO::PARAM_INT);
-            $query->bindValue(':sueldo', $empleado->GetSueldo(), PDO::PARAM_INT);
-            $query->bindValue(':turno', $empleado->GetTurno(), PDO::PARAM_STR);
-            $query->bindValue(':path_foto', $empleado->GetPathFoto(), PDO::PARAM_STR);
-
-            try
-            {
-                $query->execute();
-                return true;
-            }
-            catch(PDOException $e)
-            {
-                echo "ERROR: {$e->getMessage()}";
-            }
-        }
-
         public function EliminarDeBaseDeDatos($empleado)
         {
             $accesoDatos = AccesoDatos::ObjetoAccesoDatos();
