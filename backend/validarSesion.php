@@ -2,7 +2,7 @@
     session_start();
     function ValidarSesion($path)
     {
-        if($_SESSION["DNIEmpleado"] == FALSE)
+        if(!isset($_SESSION["DNIEmpleado"]))
         {
            header("Location: $path");
         }

@@ -75,7 +75,6 @@ namespace MainBD
 
     export function CargarDatosBD(): void
     {
-        let ajax = new Ajax();
         let dni: string = (<HTMLInputElement> document.getElementById("txtDni")).value;
         let nombre: string = (<HTMLInputElement> document.getElementById("txtNombre")).value;
         let apellido: string = (<HTMLInputElement> document.getElementById("txtApellido")).value;

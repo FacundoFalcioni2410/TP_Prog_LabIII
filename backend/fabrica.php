@@ -79,12 +79,11 @@
         }
 
         public function TraerDeArchivo($nombreArchivo)
-        {
-            
-            $archivo = fopen($nombreArchivo,"r");
-        
+        {        
             if(file_exists($nombreArchivo))
             {
+                $archivo = fopen($nombreArchivo,"r");
+
                 if(filesize($nombreArchivo))
                 {
                     do

@@ -17,7 +17,7 @@ var Main;
     };
     function MostrarForm() {
         var ajax = new Ajax();
-        ajax.Post("./index.php", MostrarFormSuccess);
+        ajax.Post("./indexArchivo.php", MostrarFormSuccess);
     }
     Main.MostrarForm = MostrarForm;
     Main.EliminarEmpleado = function (legajo) {
@@ -51,7 +51,7 @@ var Main;
     function ModificarEmpleado(dni) {
         var ajax = new Ajax();
         var parametros = "dni=" + dni;
-        ajax.Post("./index.php", MostrarFormSuccess, parametros, Fail);
+        ajax.Post("./indexArchivo.php", MostrarFormSuccess, parametros, Fail);
     }
     Main.ModificarEmpleado = ModificarEmpleado;
     function CargarDatos() {

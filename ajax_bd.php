@@ -8,7 +8,7 @@
 <head>
 	<title>ALTA DE EMPLEADOS CON AJAX</title>
 
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
 	<script type="text/javascript" src="./javascript/funcionesBD.js"></script>
 		

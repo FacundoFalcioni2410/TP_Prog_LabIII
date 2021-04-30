@@ -228,7 +228,6 @@ var MainBD;
     }
     MainBD.ModificarEmpleadoBD = ModificarEmpleadoBD;
     function CargarDatosBD() {
-        var ajax = new Ajax();
         var dni = document.getElementById("txtDni").value;
         var nombre = document.getElementById("txtNombre").value;
         var apellido = document.getElementById("txtApellido").value;

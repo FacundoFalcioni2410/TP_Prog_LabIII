@@ -15,6 +15,7 @@
 
         $fabrica = new Fabrica("",7);
         $fabrica->TraerDeBaseDeDatos();
+        
         foreach($fabrica->GetEmpleados() as $item)
         {
             if($item->GetLegajo() == $legajo)
@@ -28,7 +29,7 @@
                 else
                 {
                     echo "No se pudo eliminar <br>";
-                    echo "<a href='../index.php'>Alta de empleados</a>";
+                    echo "<a href='../indexArchivo.php'>Alta de empleados</a>";
                     break;
                 }
             }

@@ -53,7 +53,7 @@ var AdministrarValidaciones = function (e) {
         ValidarRangoNumerico(dni, 1000000, 55000000) &&
         ValidarRangoNumerico(legajo, 100, 550) &&
         ValidarRangoNumerico(sueldo, 8000, sueldoMaximo)) {
-        Main.MandarEmpleado();
+        Main.CargarDatos();
     }
 };
 var AdministrarValidacionesLogin = function (e) {
@@ -209,7 +209,7 @@ var Main;
     };
     function MostrarForm() {
         var ajax = new Ajax();
-        ajax.Post("./index.php", MostrarFormSuccess);
+        ajax.Post("./indexArchivo.php", MostrarFormSuccess);
     }
     Main.MostrarForm = MostrarForm;
     Main.EliminarEmpleado = function (legajo) {
@@ -243,10 +243,10 @@ var Main;
     function ModificarEmpleado(dni) {
         var ajax = new Ajax();
         var parametros = "dni=" + dni;
-        ajax.Post("./index.php", MostrarFormSuccess, parametros, Fail);
+        ajax.Post("./indexArchivo.php", MostrarFormSuccess, parametros, Fail);
     }
     Main.ModificarEmpleado = ModificarEmpleado;
-    function MandarEmpleado() {
+    function CargarDatos() {
         var ajax = new Ajax();
         var dni = document.getElementById("txtDni").value;
         var nombre = document.getElementById("txtNombre").value;
@@ -267,7 +267,11 @@ var Main;
         form.append("rdoTurno", turno);
         form.append("cboSexo", sexo);
         form.append("hdnModificar", modificar);
-        ajax.Post("./backend/administracion.php", Main.RefrescarPagina, form, Fail);
+        MandarEmpleado(form);
     }
-    Main.MandarEmpleado = MandarEmpleado;
+    Main.CargarDatos = CargarDatos;
+    var MandarEmpleado = function (form) {
+        var ajax = new Ajax();
+        ajax.Post("./backend/administracion.php", Main.RefrescarPagina, form, Fail);
+    };
 })(Main || (Main = {}));

@@ -189,7 +189,7 @@
             </tr>
             <tr>
                 <td colspan="2" align="right">
-                    <input type="reset" value="Limpiar">
+                <input type="button" value="Limpiar" onclick="Main.MostrarForm();">
                 </td>
             </tr>
             <tr>

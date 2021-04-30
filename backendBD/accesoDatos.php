@@ -8,9 +8,12 @@
         {
             try
             {
-                $user = 'root';
-                $pass = '';
-                $this->objetoPDO = new PDO("mysql:host=localhost; dbname=empleados",$user,$pass);
+                $user = 'id16712003_empleadobd';
+                $pass = '0Op3^bu(SwbMc5}q';
+
+                // $user = 'root';
+                // $pass = '';
+                $this->objetoPDO = new PDO("mysql:host=localhost; dbname=id16712003_empleados",$user,$pass);
             }
             catch(PDOException $e)
             {

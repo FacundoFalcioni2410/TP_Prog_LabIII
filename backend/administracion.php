@@ -114,7 +114,7 @@
             }
             else
             {
-                echo "Hubo un error con la foto <br> <a href='../index.php'>Alta de empleados</a>";
+                echo "Hubo un error con la foto <br> <a href='../indexArchivo.php'>Alta de empleados</a>";
             }
         ?>
     </div>

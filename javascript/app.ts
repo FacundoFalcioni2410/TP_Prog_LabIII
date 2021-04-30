@@ -23,7 +23,7 @@ namespace Main
 
     export function MostrarForm(): void{
         let ajax = new Ajax();
-        ajax.Post("./index.php",
+        ajax.Post("./indexArchivo.php",
         MostrarFormSuccess);  
     }
 
@@ -66,7 +66,7 @@ namespace Main
         let ajax = new Ajax();
         let parametros: string = `dni=${dni}`;
 
-        ajax.Post("./index.php",
+        ajax.Post("./indexArchivo.php",
         MostrarFormSuccess,
         parametros,
         Fail
@@ -104,7 +104,7 @@ namespace Main
     const MandarEmpleado = (form: FormData) =>{
         let ajax = new Ajax();
 
-        ajax.Post("./backend/administracion",
+        ajax.Post("./backend/administracion.php",
         RefrescarPagina,
         form,
         Fail);

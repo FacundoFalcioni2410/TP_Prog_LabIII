@@ -1,7 +1,7 @@
 <?php
     require_once("empleado.php");
     require_once("fabrica_bd.php");
-    require_once("accesoDatos.php")
+    require_once("accesoDatos.php");
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +38,7 @@
                     break;
             }
 
-            $pathDestino = "../fotos/" . $file["name"];
+            $pathDestino = "../fotosBD/" . $file["name"];
 
             $empleado = new Empleado($nombre,$apellido,$dni,$sexo,$legajo,$sueldo,$turno);
             $fabrica = new Fabrica("X",7);
@@ -46,6 +46,7 @@
             $empleadoModificar = NULL;
             $fotoOk = FALSE;
             $condicionesFotoOk = FALSE;
+            $dniDelEmpleadoModificar = NULL;
 
             if($modificar == "ok")
             {
@@ -62,7 +63,7 @@
             {
                 $tipoDeArchivo = pathinfo($pathDestino,PATHINFO_EXTENSION);
                 $apellido = str_replace(' ','',$apellido);
-                $pathDestino = "../fotos/" . $dni . "-" . $apellido . "." . $tipoDeArchivo;
+                $pathDestino = "../fotosBD/" . $dni . "-" . $apellido . "." . $tipoDeArchivo;
 
                 if($tipoDeArchivo == "jpg" || $tipoDeArchivo == "bmp" || $tipoDeArchivo == "gif" || $tipoDeArchivo == "png" || $tipoDeArchivo == "jpeg")
                 {
@@ -76,10 +77,9 @@
                 {
                     $fotoOk = TRUE;
                 }
-                
+
                 if($empleadoModificar != NULL && $condicionesFotoOk)
                 {
-                    $fabrica->EliminarDeBaseDeDatos($empleadoModificar);
                     $fotoOk = TRUE;
                 }
             }
@@ -90,20 +90,31 @@
                 move_uploaded_file($file["tmp_name"],$pathDestino);
                 $empleado->SetPathFoto($pathDestino);
                 
-                if($fabrica->AltaBaseDeDatos($empleado))
+                if($modificar == "ok")
                 {
-                    echo "<a href='mostrar.php'>Mostrar empleados</a>";
+                    if($empleadoModificar->GetApellido() !== $empleado->GetApellido())
+                    {
+                        unlink($empleadoModificar->GetPathFoto());
+                    }
+                    $fabrica->ModificarDeBaseDeDatos($empleado);
                 }
                 else
                 {
-                    unlink($empleado->GetPathFoto());
-                    echo "Limite de empleados alcanzado <br>
-                          <a href=./mostrar.php>Mostrar Empleados</a>";
+                    if($fabrica->AltaBaseDeDatos($empleado))
+                    {
+                        echo "<a href='mostrar.php'>Mostrar empleados</a>";
+                    }
+                    else
+                    {
+                        unlink($empleado->GetPathFoto());
+                        echo "Limite de empleados alcanzado <br>
+                              <a href=./mostrar.php>Mostrar Empleados</a>";
+                    }
                 }
             }
             else
             {
-                echo "Hubo un error con la foto <br> <a href='../index.php'>Alta de empleados</a>";
+                echo "Hubo un error con la foto <br> <a href='../indexArchivo.php'>Alta de empleados</a>";
             }
         ?>
     </div>

@@ -28,17 +28,24 @@
         echo "ERROR: {$e->getMessage()}";
     }
 
-    var_dump($query);
-    if($dni == $empleado->dni && $apellido == $empleado->apellido)
+    if($empleado != FALSE)
     {
-        $flag = TRUE;
-    }
+        if($dni == $empleado->dni && $apellido == $empleado->apellido)
+        {
+            $flag = TRUE;
+        }
 
-    if($flag)
-    {
-        session_start();
-        $_SESSION["DNIEmpleadoBD"] = $dni;
-        header("Location: ../ajax_bd.php");
+        if($flag)
+        {
+            session_start();
+            $_SESSION["DNIEmpleadoBD"] = $dni;
+            header("Location: ../ajax_bd.php");
+        }
+        else
+        {
+            echo "No se encontro un empleado con esos datos. <br>
+            <a href=../login_bd.html>Login</a>";
+        }
     }
     else
     {
