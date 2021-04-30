@@ -30,6 +30,7 @@
                                         <th>  LEGAJO     </th>
                                         <th>  SUELDO     </th>
                                         <th>  TURNO     </th>
+                                        <th>  PATH FOTO </th>
                                         <th>  FOTO     </th>
                                         <th colspan=2>  ACCION     </th>
                                     </tr> 
@@ -44,11 +45,12 @@
                                 <td>{$item->GetLegajo()}</td>
                                 <td>{$item->GetSueldo()}</td>
                                 <td>{$item->GetTurno()}</td>
+                                <td>{$item->GetPathFoto()}</td>
                                 <td><img src='archivos/".$item->GetPathFoto()."' width='100px' height='100px'/></td>
                                 <td>
                                     <input type=button value=Modificar class=MiBotonUTN id=btnModificar onclick=MainBD.ModificarEmpleadoBD({$item->GetDni()})>
-                                </td>
-                                <td>
+                                    <br>
+                                    <br>
                                     <input type=button value=Eliminar class=MiBotonUTN id=btnEliminar onclick=MainBD.EliminarEmpleadoBD({$item->GetLegajo()})
                                 </td>
                               </tr>";
