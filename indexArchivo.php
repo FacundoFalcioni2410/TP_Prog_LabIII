@@ -33,12 +33,12 @@
             if($item->GetDni() == $dni)
             {
                 $empleadoaModificar = $item;
-                $apellido=$empleadoaModificar->GetApellido();
-                $nombre=$empleadoaModificar->GetNombre();
-                $sexo=$empleadoaModificar->GetSexo();
-                $legajo=$empleadoaModificar->GetLegajo();
-                $sueldo=$empleadoaModificar->GetSueldo();
-                $turno=$empleadoaModificar->GetTurno();
+                $apellido = $empleadoaModificar->GetApellido();
+                $nombre = $empleadoaModificar->GetNombre();
+                $sexo = $empleadoaModificar->GetSexo();
+                $legajo = $empleadoaModificar->GetLegajo();
+                $sueldo = $empleadoaModificar->GetSueldo();
+                $turno = $empleadoaModificar->GetTurno();
                 break;
             }
         }
@@ -62,10 +62,12 @@
         else if($turno == "T")
         {
             $turnoT = "checked";
+            $turnoM = '';
         }
         else
         {
             $turnoN = "checked";
+            $turnoM = '';
         }
     }
 

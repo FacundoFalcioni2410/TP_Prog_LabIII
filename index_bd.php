@@ -62,10 +62,12 @@
         else if($turnoT == "T")
         {
             $turnoT = "checked";
+            $turnoM = '';
         }
         else
         {
             $turnoN = "checked";
+            $turnoM = '';
         }
     }
 
