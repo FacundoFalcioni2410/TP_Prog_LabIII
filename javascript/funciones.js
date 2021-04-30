@@ -1,4 +1,4 @@
-var AdministrarValidaciones = function (e) {
+var AdministrarValidaciones = function () {
     var sueldoMaximo = ObtenerSueldoMaximo(ObtenerTurnoSeleccionado());
     var dni = parseInt(document.getElementById("txtDni").value);
     var sueldo = parseInt(document.getElementById("txtSueldo").value);
@@ -45,7 +45,6 @@ var AdministrarValidaciones = function (e) {
     else {
         AdministrarSpanError("spanFile", false);
     }
-    e.preventDefault();
     if (ValidarCamposVacios("txtNombre") &&
         ValidarCamposVacios("txtApellido") &&
         ValidarCamposVacios("file") &&

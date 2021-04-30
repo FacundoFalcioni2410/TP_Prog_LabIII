@@ -115,7 +115,7 @@ var AdministrarModificar = function (dni) {
     input.value = dni;
     myForm.submit();
 };
-var AdministrarValidacionesBD = function (e) {
+var AdministrarValidacionesBD = function () {
     var sueldoMaximo = ObtenerSueldoMaximo(ObtenerTurnoSeleccionado());
     var dni = parseInt(document.getElementById("txtDni").value);
     var sueldo = parseInt(document.getElementById("txtSueldo").value);
@@ -162,7 +162,6 @@ var AdministrarValidacionesBD = function (e) {
     else {
         AdministrarSpanError("spanFile", false);
     }
-    e.preventDefault();
     if (ValidarCamposVacios("txtNombre") &&
         ValidarCamposVacios("txtApellido") &&
         ValidarCamposVacios("file") &&

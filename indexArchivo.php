@@ -191,7 +191,7 @@
                     </tr>
                     <tr>
                         <td colspan=2 align=right>
-                            <input type=submit onclick='AdministrarValidaciones(event)' name=btnEnviar id=btnEnviar value=$boton>
+                            <input type=submit onclick='AdministrarValidaciones()' name=btnEnviar id=btnEnviar value=$boton>
                         </td>
                     </tr>
             </table>";
