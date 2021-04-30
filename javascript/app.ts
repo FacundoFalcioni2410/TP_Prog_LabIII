@@ -8,10 +8,8 @@ window.onload = (): void =>
 namespace Main
 {
     export const RefrescarPagina = (): void =>{
-        console.clear();
-        //console.log(respuesta);
-        MostrarForm();
         MostrarEmpleados();
+        MostrarForm();
     }
 
     export const MostrarEmpleados = (): void =>
@@ -39,7 +37,6 @@ namespace Main
     }
 
     export function MostrarEmpleadosSuccess(empleados:string):void {
-        console.clear();
         console.log(empleados);
         (<HTMLDivElement>document.getElementById("divEmpleados")).innerHTML = empleados;
     }
@@ -50,13 +47,11 @@ namespace Main
     }
 
     export function DeleteSuccess(retorno: string):void {
-        console.clear();
         console.log(retorno);
         MostrarEmpleados();
     }
 
     export function Fail(retorno:string):void {
-        console.clear();
         console.log(retorno);
         alert("Ha ocurrido un ERROR!!!");
     }

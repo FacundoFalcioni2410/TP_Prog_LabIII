@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eliminar empleados</title>
-</head>
-<body>
-    <?php
+<?php
         require_once("fabrica.php");
         require_once("empleado.php");
 
@@ -26,18 +17,16 @@
                 {
                     unlink($item->GetPathFoto());
                     $fabrica->GuardarArchivo($path);
-                    // echo "Empleado eliminado con exito <br>";
-                    // echo "<a href='mostrar.php'>Mostrar empleados</a>";
+                    echo "Empleado eliminado con exito <br>";
+                    echo "<a href='mostrar.php'>Mostrar empleados</a>";
                     break;
                 }
                 else
                 {
-                    // echo "No se pudo eliminar <br>";
-                    // echo "<a href='../indexArchivo.php'>Alta de empleados</a>";
+                    echo "No se pudo eliminar <br>";
+                    echo "<a href='../indexArchivo.php'>Alta de empleados</a>";
                     break;
                 }
             }
         }
-    ?>    
-</body>
-</html>
+?>

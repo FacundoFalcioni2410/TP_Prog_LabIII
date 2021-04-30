@@ -1,4 +1,4 @@
-const AdministrarValidacionesBD = (e: Event) =>{
+const AdministrarValidacionesBD = () =>{
     let sueldoMaximo: number = ObtenerSueldoMaximo(ObtenerTurnoSeleccionado());
     let dni: number = parseInt((<HTMLInputElement> document.getElementById("txtDni")).value);
     let sueldo: number = parseInt((<HTMLInputElement> document.getElementById("txtSueldo")).value);
@@ -69,8 +69,6 @@ const AdministrarValidacionesBD = (e: Event) =>{
     {
         AdministrarSpanError("spanFile", false);
     }
-
-    e.preventDefault();
 
     if(ValidarCamposVacios("txtNombre") &&
     ValidarCamposVacios("txtApellido") &&

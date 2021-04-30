@@ -2,21 +2,17 @@
 	include_once("./backendBD/validarSesion_bd.php");
 	ValidarSesion("./login_bd.html");
 ?>
-
 <!doctype html>
 <html>
 <head>
-	<title>ALTA DE EMPLEADOS CON AJAX</title>
-
+	<title>CRUD DE EMPLEADOS CON AJAX Y BASE DE DATOS</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-
 	<script type="text/javascript" src="./javascript/funcionesBD.js"></script>
-		
 </head>
 <body>
 	<div class="container">
 		<div class="page-header">
-			<h1>EMPLEADOS CON AJAX</h1>      
+			<h1>CRUD DE EMPLEADOS CON AJAX Y BASE DE DATOS</h1>      
 		</div>
 		<div class="CajaInicio animated bounceInRight" style="width:1100px">
 			<h4 style="border:solid;padding:10px">Facundo Gabriel Falcioni</h4>

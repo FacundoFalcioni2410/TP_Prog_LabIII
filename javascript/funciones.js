@@ -198,10 +198,8 @@ window.onload = function () {
 var Main;
 (function (Main) {
     Main.RefrescarPagina = function () {
-        console.clear();
-        //console.log(respuesta);
-        MostrarForm();
         Main.MostrarEmpleados();
+        MostrarForm();
     };
     Main.MostrarEmpleados = function () {
         var ajax = new Ajax();
@@ -218,7 +216,6 @@ var Main;
         ajax.Get("./backend/eliminar.php", DeleteSuccess, parametros, Fail);
     };
     function MostrarEmpleadosSuccess(empleados) {
-        console.clear();
         console.log(empleados);
         document.getElementById("divEmpleados").innerHTML = empleados;
     }
@@ -229,13 +226,11 @@ var Main;
     }
     Main.MostrarFormSuccess = MostrarFormSuccess;
     function DeleteSuccess(retorno) {
-        console.clear();
         console.log(retorno);
         Main.MostrarEmpleados();
     }
     Main.DeleteSuccess = DeleteSuccess;
     function Fail(retorno) {
-        console.clear();
         console.log(retorno);
         alert("Ha ocurrido un ERROR!!!");
     }
