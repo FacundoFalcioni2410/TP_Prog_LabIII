@@ -1,0 +1,13 @@
+{
+    "name": "facu/tp_prog_lab-iii",
+    "description": "TP PROG LABO III",
+    "authors": [
+        {
+            "name": "FacundoFalcioni2410",
+            "email": "facundofalcioni2410@gmail.com"
+        }
+    ],
+    "require": {
+        "mpdf/mpdf": "^8.0"
+    }
+}

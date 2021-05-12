@@ -186,7 +186,7 @@
                     </tr>
                     <tr>
                         <td colspan=2 align=right>
-                        <input type=button value=Limpiar onclick='Main.MostrarForm()'>
+                        <input type=button value=Limpiar onclick='MainBD.MostrarFormBD()'>
                         </td>
                     </tr>
                     <tr>

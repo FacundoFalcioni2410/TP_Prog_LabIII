@@ -30,7 +30,8 @@
 				</tbody>
 			</table>
 			<h6 style="display:block;border:solid;padding:10px;">
-			<a href="./backendBD/cerrarSesion_bd.php">Cerrar sesion</a>
+				<a href="./backendBD/cerrarSesion_bd.php">Cerrar sesion</a>
+				<a href="./backendBD/convertorPDF.php" target="_blank">Convertir a PDF</a>
 			</h6>
 		</div>
 	</div>

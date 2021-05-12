@@ -8,12 +8,12 @@
         {
             try
             {
-                $user = 'id16712003_empleadobd';
-                $pass = '0Op3^bu(SwbMc5}q';
+                // $user = 'id16712003_empleadobd';
+                // $pass = '0Op3^bu(SwbMc5}q';
                 // $dbname=id16712003_empleados
-                // $user = 'root';
-                // $pass = '';
-                $this->objetoPDO = new PDO("mysql:host=localhost; dbname=id16712003_empleados",$user,$pass);
+                $user = 'root';
+                $pass = '';
+                $this->objetoPDO = new PDO("mysql:host=localhost; dbname=empleados",$user,$pass);
             }
             catch(PDOException $e)
             {
